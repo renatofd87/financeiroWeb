@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+	
+<head>
+	<title>Listagem de Despesas</title>
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">
+					<h1>
+						Despesas Cadastradas
+					</h1>
+				</div>
+			
+				<div class="col-xs-2">
+					<div class="aw-page-header-controls">
+						<a class="btn btn-primary" th:href="@{/despesa/novo}">
+							<i class="fa  fa-plus-circle"></i> <span class="hidden-xs  hidden-sm">Nova Despesa</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="table-responsive">
+			<table id="tabela-despesas" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+				<thead class="aw-table-header-solid">
+					<tr>
+						<th>ID da Despesa</th>
+						<th>Data</th>
+						<th>Descrição</th>
+						<th>Categoria</th>
+						<th>Conta</th>
+						<th>Valor</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="despesa : ${despesas}">
+						<td th:text="${despesa.iddespesa}">1</td>
+						<td th:text="${despesa.datadespesa}">data despesa</td>
+						<td><a th:href="@{/despesa/{codigo}(codigo=${despesa.iddespesa})}" th:text="${despesa.descricao}">descricao</a></td>
+						<td th:text="${despesa.categoria.nomecategoria}">nomecategoria</td>
+						<td th:text="${despesa.conta.nomeconta}">conta</td>
+						<td th:text="${despesa.valordespesaformatado}"></td>
+					</tr>
+					<tr th:if="${despesas.empty}">
+						<td colspan="6">Nenhum despesa cadastrada</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</section>
+</body>
+</html>

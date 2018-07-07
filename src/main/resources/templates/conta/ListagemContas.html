@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+	
+<head>
+	<title>Listagem de Contas</title>
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+	<div class="page-header modalConfirma">
+		<div id="dialog-confirm-conta" title="Excluir Conta" style="display:none">
+		  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>A conta sera excluída permanentemente e não pode ser recuperada. Você tem certeza?</p>
+		</div>
+
+	</div>
+	<div class="container-fluid">
+		<div class="table-responsive">
+			<table id="tabela-contas" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+				<thead class="aw-table-header-solid">
+					<tr>
+						<th class="text-center">Data da Criação</th>
+						<th class="text-center">Conta</th>
+						<th class="text-center">Tipo</th>
+						<th class="text-center">Saldo</th>
+						<th class="text-center">Descrição</th>
+						<th class="text-center"></th>
+						<th class="text-center"></th>
+					</tr>
+				</thead>
+				<tbody class="text-center">
+					<tr th:each="conta : ${contas.contas}">
+						<td th:text="${conta.dataCriacao}">Data da Criação</td>
+						<td th:text="${conta.nomeConta}"></td>
+						<td th:text="${conta.tipoConta.tipoConta}"></td>
+						<td th:classappend="${conta.saldo >= 0} ? textoVerde :textoVermelho"  th:text="${conta.saldoFormatado}">saldo</td>
+						<td th:text="${conta.descricao}">Descrição</td>
+						<td>
+							<a th:href="@{/conta/{codigo}(codigo=${conta.idConta})}">
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							</a>
+						</td>
+						<td>
+							<a href="#" th:onclick="'deletarConta(\'' + ${conta.idConta} + '\');'">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</a>
+						</td>
+					</tr>
+					<tr th:if="${contas.contas.empty}">
+						<td colspan="7">Nenhuma conta cadastrada</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+		<div class="container-fluid">
+			<div id="resultadoConta" class="row">
+				<input id="saldoatuallista" type="hidden"  th:field="*{contas.saldoatual}"/>
+                <div class="col-lg-3 col-md-6">
+                </div>
+                <div class="col-lg-3 col-md-6">
+                </div>
+                <div class="col-lg-3 col-md-6">
+                </div>
+      			 <div class="col-lg-3 col-md-6">
+                    <div id="panelSaldoAtual" class="panel" th:classappend="${contas.saldoatual &gt;= 0.00} ? panel-green :panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                    <div>Saldo Atual</div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span id="saldoatualgreen" class="pull-left" th:text="*{contas.saldoatualformatado}"></span>
+                                <span class="pull-right"></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+			</div>
+		</div>
+</section>
+</body>
+</html>

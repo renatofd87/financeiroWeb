@@ -1,0 +1,160 @@
+/* Upload - http://getuikit.com/docs/upload.html */
+.wn-upload {
+	padding: 15px;
+	
+	border: 1px dashed #ddd;
+	border-radius: 4px;
+	background: #fafafa;
+	
+	text-align: center;
+}
+
+.wn-upload-form-file {
+	display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1px;
+}
+
+.wn-upload-form-file > input[type=file] {
+	position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+    
+    font-size: 500px;
+}
+
+
+/**Cadastro Despesa*/
+
+.ui-spinner {
+    margin-bottom: -60px;
+    margin-left: -31px;
+}
+
+
+/**Listagem de Despesas*/
+
+#mes{
+	margin-left:120px;
+}
+
+#ano{
+	margin-right:120px;
+}
+
+#antespaginacao{
+	margin-left:0px;
+}
+
+#depoispaginacao{
+	margin-left:0px;
+}
+
+.page-header {
+	 border-bottom: medium none;
+	 background-color: #fff;
+}
+
+body {
+    font-weight: 400;
+    position: relative;
+    font-family: roboto;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #5e5e5e;
+    margin: 0;
+}
+
+#resultado{
+	margin-top: 25px;
+}
+
+.panel {
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.panel-primary {
+    border-color: #337ab7;
+}
+
+.panel-heading {
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
+    padding: 10px 15px;
+}
+
+.panel-primary > .panel-heading {
+    background-color: #1e94d2;
+    border-color: #1e94d2;
+    color: #fff;
+}
+
+.panel-primary > .panel-heading {
+    text-align: center;
+}
+
+.panel-footer {
+    text-align: center;
+}
+
+.pull-left {
+    float: inherit !important;
+}
+
+.panel-heading {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.panel-green {
+    border-color: #5cb85c;
+}
+
+.panel-green > .panel-heading {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+    color: white;
+}
+
+.panel-red {
+    border-color: #d9534f;
+}
+
+.panel-red > .panel-heading {
+    background-color: #d9534f;
+    border-color: #d9534f;
+    color: white;
+}
+
+.page-header.modalConfirma {
+    margin-bottom: 100px;
+}
+
+/**Layout Padrão*/
+.aw-layout-footer {
+    border-top: 0px;
+}
+
+/**Contas*/
+#panelSaldoAtual .row{
+	text-align:center;
+}
+
+.textoVerde {
+	color : #5cb85c;
+}
+
+.textoVermelho {
+	color : #d9534f;
+}

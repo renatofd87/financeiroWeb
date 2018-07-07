@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+	
+<head>
+	<title>Listagem de Despesas</title>
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+	<div class="page-header modalConfirma">
+		<div id="dialog-confirm" title="Excluir Despesa" style="display:none">
+		  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>A despesa sera excluída permanentemente e não pode ser recuperada. Você tem certeza?</p>
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+  		<div class="col-md-2">
+  			<a id="anterior"  href="#">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			</a>
+  		</div>
+  		<div class="col-md-4">
+  			<a id="anterior"  href="#">
+	  			<label id="mes" class="control-label"></label> 
+				<label id="de" class="control-label">de</label>
+				<label id="ano" class="control-label"></label>
+			</a>
+  		</div>
+  		<div class="col-md-2">
+  			<a id="proximo" href="#">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			</a>
+  		</div>
+  		<div class="col-md-2">
+		</div>
+  	</div>
+	<div class="container-fluid">
+		<div class="table-responsive">
+			<table id="tabela-despesas" class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+				<thead class="aw-table-header-solid">
+					<tr>
+						<th class="text-center">Pago</th>
+						<th class="text-center">Data</th>
+						<th class="text-center">Descrição</th>
+						<th class="text-center">Categoria</th>
+						<th class="text-center">Conta</th>
+						<th class="text-center">Valor</th>
+						<th class="text-center"></th>
+						<th class="text-center"></th>
+					</tr>
+				</thead>
+				<tbody class="text-center">
+					<tr th:each="despesa : ${despesas.listadespesas}">
+						<td ><span th:classappend="${despesa.pago} ? textoVerde :textoVermelho" class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+						<td th:text="${despesa.datadespesa}">data despesa</td>
+						<td th:text="${despesa.descricao}">descricao</td>
+						<td th:text="${despesa.categoria.nomecategoria}">nomecategoria</td>
+						<td th:text="${despesa.conta.nomeConta}">conta</td>
+						<td th:text="${despesa.valordespesaformatado}"></td>
+						
+						<td>
+							<a th:href="@{/despesa/{codigo}(codigo=${despesa.iddespesa})}">
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							</a>
+						</td>
+						<td>
+							<a href="#" th:onclick="'deletarDespesa(\'' + ${despesa.iddespesa} + '\');'">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</a>
+						</td>
+					</tr>
+					<tr th:if="${despesas.listadespesas.empty}">
+						<td colspan="7">Nenhum despesa cadastrada</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+			<div class="container-fluid">
+			<div id="resultado" class="row">
+                <div class="col-lg-3 col-md-6">
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-9 text-right">
+                                    <div>Despesas Pendentes</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span id="despesaspendentes" class="pull-left" th:text="*{despesas.despesaspendentes}"></span>
+                                <span class="pull-right"></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-9 text-right">
+                                    <div>Despesas Pagas</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span id="despesaspagas" class="pull-left" th:text="*{despesas.despesaspagas}"></span>
+                                <span class="pull-right"></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+      			 <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div>Total</div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span id="total" class="pull-left" th:text="*{despesas.total}"></span>
+                                <span class="pull-right"></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+			</div>
+		</div>
+</section>
+</body>
+</html>

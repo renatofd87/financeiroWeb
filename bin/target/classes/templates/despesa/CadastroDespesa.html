@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+	
+<head>
+	<title>Cadastro de Despesa</title>
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<h1>
+				Cadastrar Despesa
+			</h1>
+		</div>
+	</div>
+	<div class="container-fluid">
+	<div class="alert  alert-success  alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}" >
+		<button type="button" class="close" data-dismiss="alert" ><span aria-hidden="true">&times;</span></button>
+		<span th:text="${mensagem}"></span>
+	</div>
+		<form method="POST" th:object="${despesa}" class="form-vertical  js-form-loading" th:action="@{/despesa/novo}">
+			<div class="alert  alert-danger  alert-dismissible" role="alert" th:if="${#fields.hasAnyErrors()}">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<th:block th:each="erro : ${#fields.detailedErrors()}">
+					<div>
+						<i class="fa  fa-exclamation-circle"></i> 
+						<span th:text="${erro.message}">Já existe uma despesa com o nome informado.</span>
+					</div>
+				</th:block>
+			</div>
+			
+			
+			<input id="iddespesa" type="hidden" class="form-control" th:field="*{iddespesa}"/>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('descricao')} ? has-error">
+				<label for="nome" class="control-label">Descrição</label>
+				<input id="nome" type="text" class="form-control" th:field="*{descricao}"/>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-6  form-group">
+					<label for="datepicker" class="control-label">Data da Despesa</label>
+					<input type="text" class="form-control" id="datepicker" th:field="*{datadespesa}"/>
+				</div>
+				
+				<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('valordespesa')} ? has-error">
+					<label for="valor" class="control-label">Valor</label>
+					<input id="valorMostrar" type="text" class="form-control" value=""/>
+					<input id="valor" type="hidden" class="form-control"  th:field="*{valordespesa}"/>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('categoria')} ? has-error">
+					<label for="categoria" class="control-label">Categoria</label>
+					<select id="categoria" class="form-control" th:field="*{categoria.idcategoria}">
+						<option  value="">Selecione a Categoria</option>
+						<option th:each="categ : ${categorias}" th:value="${categ.idcategoria}" th:text="${categ.nomecategoria}"></option>
+					</select>
+				</div>
+				
+				<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('conta')} ? has-error">
+					<label for="conta" class="control-label">Conta</label>
+					<select id="conta" class="form-control" th:field="*{conta.idconta}">
+						<option value="">Selecione a Conta</option>
+						<option th:each="con : ${contas}" th:value="${con.idconta}" th:text="${con.nomeconta}"></option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group" >
+				<label for="observacao" class="control-label">Observação</label>
+				<input id="observacao" type="text" class="form-control" th:field="*{observacao}"/>
+			</div>
+			
+			<div class="form-group" >
+				<label for="fixa" class="control-label">Despesa Fixa</label>
+				<input id="fixa" type="checkbox"/>
+			</div>
+			
+			<div class="form-group" >
+				<label for="repeticao" class="control-label">Repetir</label>
+				<input id="repeticao" type="checkbox"/>
+			</div>
+			
+			<div class="row repeticaoDiv">
+				<div class="col-sm-6  form-group">
+					<label for="spinner" class="control-label">QTD</label>
+					<input id="spinner" autocomplete="off" class="ui-spinner-input" role="spinbutton"/>
+					<input id="personalisado" type="text" class="form-control" placeholder="QTQ: X"/>
+				</div>
+				
+				<div class="col-sm-6  form-group">
+					<label for="repetir" class="control-label">Repetir</label>
+					<select id="repetir" class="form-control" >
+						<option value="">Selecione o Periodo</option>
+						<option th:each="tipo : ${periodos}" th:value="${conta}" th:text="${tipo.descricao}"></option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<button onclick="removerMascaraDinheiro()" class="btn  btn-primary" type="submit">Salvar</button>
+			</div>
+	
+		</form>
+	</div>
+</section>
+
+</body>
+</html>
